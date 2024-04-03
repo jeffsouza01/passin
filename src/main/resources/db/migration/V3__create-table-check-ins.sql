@@ -1,0 +1,6 @@
+CREATE TABLE tb_checkins(
+    id INTEGER NOT NULL PRIMARY KEY IDENTITY,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    attendee_id VARCHAR(255) NOT NULL,
+    CONSTRAINT check_ins_attendees_id_fkey FOREIGN KEY (attendee_id) REFERENCES tb_attendees(id) ON DELETE RESTRICT ON UPDATE CASCADE
+);
