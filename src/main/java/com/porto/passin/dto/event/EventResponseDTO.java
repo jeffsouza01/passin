@@ -1,7 +1,9 @@
 package com.porto.passin.dto.event;
 
 import com.porto.passin.entities.Event;
+import lombok.Getter;
 
+@Getter
 public class EventResponseDTO {
 
     EventDetailDTO event;

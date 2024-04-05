@@ -10,6 +10,7 @@ import com.porto.passin.repositories.AttendeeRepository;
 import com.porto.passin.repositories.EventRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.text.Normalizer;
@@ -53,7 +54,7 @@ public class EventService {
     private String createSlug(String text){
         String normalized = Normalizer.normalize(text, Normalizer.Form.NFD);
                 // Seleciona todos os acentos e substitui por string vazia
-        return normalized.replaceAll("[\\p{InCOMBINING_DIACRITICAL_MARKS]", "")
+        return normalized.replaceAll("[\\p{InCOMBINING_DIACRITICAL_MARKS}]", "")
 
                 // Seleciona todos os caracteres alfanumericos, o que não for letra e numero
                 .replaceAll("[^\\w\\s]", "")
@@ -63,4 +64,9 @@ public class EventService {
                 .toLowerCase();
     }
 
+//    public ResponseEntity<List<EventResponseDTO>> list() {
+//       List<Event> events = eventRepository.findAll();
+//
+//
+//    }
 }
