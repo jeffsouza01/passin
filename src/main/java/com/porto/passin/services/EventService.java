@@ -7,11 +7,9 @@ import com.porto.passin.dto.event.EventResponseDTO;
 import com.porto.passin.entities.Attendee;
 import com.porto.passin.entities.Event;
 import com.porto.passin.exceptions.EventNotFoundException;
-import com.porto.passin.repositories.AttendeeRepository;
 import com.porto.passin.repositories.EventRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.text.Normalizer;
@@ -24,7 +22,7 @@ public class EventService {
     private EventRepository eventRepository;
 
     @Autowired
-    private AttendeeRepository attendeeRepository;
+    private AttendeeService attendeeService;
 
    @Transactional
     public EventResponseDTO getEventDetail(String eventId){
@@ -32,7 +30,7 @@ public class EventService {
                 () -> new EventNotFoundException("Event with ID: " + eventId + " Not Found!")
                 // TODO - Update to manager errors
         );
-        List<Attendee> attendeeList = this.attendeeRepository.findByEventId(eventId);
+        List<Attendee> attendeeList = this.attendeeService.getAllAttendesFromEvent(eventId);
 
         return new EventResponseDTO(event, attendeeList.size());
     }
