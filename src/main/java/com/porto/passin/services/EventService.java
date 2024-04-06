@@ -6,6 +6,7 @@ import com.porto.passin.dto.event.EventRequestDTO;
 import com.porto.passin.dto.event.EventResponseDTO;
 import com.porto.passin.entities.Attendee;
 import com.porto.passin.entities.Event;
+import com.porto.passin.exceptions.EventNotFoundException;
 import com.porto.passin.repositories.AttendeeRepository;
 import com.porto.passin.repositories.EventRepository;
 import jakarta.transaction.Transactional;
@@ -28,7 +29,7 @@ public class EventService {
    @Transactional
     public EventResponseDTO getEventDetail(String eventId){
         Event event = this.eventRepository.findById(eventId).orElseThrow(
-                () -> new RuntimeException("Event with ID: " + eventId + "Not Found!")
+                () -> new EventNotFoundException("Event with ID: " + eventId + " Not Found!")
                 // TODO - Update to manager errors
         );
         List<Attendee> attendeeList = this.attendeeRepository.findByEventId(eventId);
